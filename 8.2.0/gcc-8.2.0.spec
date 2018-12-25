@@ -1,7 +1,7 @@
 %global snaprel %{nil}
 
 Name: gcc
-Version: 8.1.0
+Version: 8.2.0
 %define src_dir %{name}-%{version}
 Release: 0%{?dist}
 Summary: Various compilers (C, C++, Objective-C, ...)
@@ -27,18 +27,16 @@ BuildRequires: elfutils-devel
 BuildRequires: elfutils-libelf-devel    
 BuildRequires: glibc
 BuildRequires: /lib/libc.so.6 /usr/lib/libc.so /lib64/libc.so.6 /usr/lib64/libc.so
-Patch0: gcc-8.1.0.patch
 %undefine _missing_build_ids_terminate_build
 %undefine _disable_source_fetch
-Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-8.1.0.tar.gz
-%define  SHA256SUM0 f883fa0d94120e40522932ad51f90a939222b0ee42525be52c50bb7a5108cac0
+Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-8.2.0.tar.gz
+%define  SHA256SUM0 6d095163c65cddf6808a7114da9c871f8101f2b452642f60dea14b114de4b921
 %description
-The gcc package contains the GNU Compiler Collection version 8.1.0.
+The gcc package contains the GNU Compiler Collection version 8.2.0.
 
 %prep
 echo "%SHA256SUM0 %SOURCE0" | sha256sum -c -
 %setup -q
-%patch0 -p1
 
 %build
 ./configure --prefix=%{_usr}/local/%{src_dir} --enable-multilib --with-tune=generic --with-arch_32=i686
@@ -53,6 +51,6 @@ make install DESTDIR=%{buildroot}
 
 %changelog
 
-* Mon Dec 24 2018 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 8.1.0-0
+* Tue Dec 25 2018 Alexis Jeandet <alexis.jeandet@member.fsf.org> - 8.2.0-0
 - First setup
 
