@@ -1,0 +1,118 @@
+diff --git a/libsanitizer/sanitizer_common/sanitizer_linux.cc b/libsanitizer/sanitizer_common/sanitizer_linux.cc
+index 223d9c68532..bb3888f2df1 100644
+--- a/libsanitizer/sanitizer_common/sanitizer_linux.cc
++++ b/libsanitizer/sanitizer_common/sanitizer_linux.cc
+@@ -1070,71 +1070,71 @@ void internal_join_thread(void *th) {}
+ 
+ void GetPcSpBp(void *context, uptr *pc, uptr *sp, uptr *bp) {
+ #if defined(__arm__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.arm_pc;
+-  *bp = ucontext->uc_mcontext.arm_fp;
+-  *sp = ucontext->uc_mcontext.arm_sp;
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.arm_pc;
++  *bp = uContext->uc_mcontext.arm_fp;
++  *sp = uContext->uc_mcontext.arm_sp;
+ #elif defined(__aarch64__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.pc;
+-  *bp = ucontext->uc_mcontext.regs[29];
+-  *sp = ucontext->uc_mcontext.sp;
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.pc;
++  *bp = uContext->uc_mcontext.regs[29];
++  *sp = uContext->uc_mcontext.sp;
+ #elif defined(__hppa__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.sc_iaoq[0];
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.sc_iaoq[0];
+   /* GCC uses %r3 whenever a frame pointer is needed.  */
+-  *bp = ucontext->uc_mcontext.sc_gr[3];
+-  *sp = ucontext->uc_mcontext.sc_gr[30];
++  *bp = uContext->uc_mcontext.sc_gr[3];
++  *sp = uContext->uc_mcontext.sc_gr[30];
+ #elif defined(__x86_64__)
+ # if SANITIZER_FREEBSD
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.mc_rip;
+-  *bp = ucontext->uc_mcontext.mc_rbp;
+-  *sp = ucontext->uc_mcontext.mc_rsp;
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.mc_rip;
++  *bp = uContext->uc_mcontext.mc_rbp;
++  *sp = uContext->uc_mcontext.mc_rsp;
+ # else
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.gregs[REG_RIP];
+-  *bp = ucontext->uc_mcontext.gregs[REG_RBP];
+-  *sp = ucontext->uc_mcontext.gregs[REG_RSP];
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.gregs[REG_RIP];
++  *bp = uContext->uc_mcontext.gregs[REG_RBP];
++  *sp = uContext->uc_mcontext.gregs[REG_RSP];
+ # endif
+ #elif defined(__i386__)
+ # if SANITIZER_FREEBSD
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.mc_eip;
+-  *bp = ucontext->uc_mcontext.mc_ebp;
+-  *sp = ucontext->uc_mcontext.mc_esp;
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.mc_eip;
++  *bp = uContext->uc_mcontext.mc_ebp;
++  *sp = uContext->uc_mcontext.mc_esp;
+ # else
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.gregs[REG_EIP];
+-  *bp = ucontext->uc_mcontext.gregs[REG_EBP];
+-  *sp = ucontext->uc_mcontext.gregs[REG_ESP];
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.gregs[REG_EIP];
++  *bp = uContext->uc_mcontext.gregs[REG_EBP];
++  *sp = uContext->uc_mcontext.gregs[REG_ESP];
+ # endif
+ #elif defined(__powerpc__) || defined(__powerpc64__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.regs->nip;
+-  *sp = ucontext->uc_mcontext.regs->gpr[PT_R1];
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.regs->nip;
++  *sp = uContext->uc_mcontext.regs->gpr[PT_R1];
+   // The powerpc{,64}-linux ABIs do not specify r31 as the frame
+   // pointer, but GCC always uses r31 when we need a frame pointer.
+-  *bp = ucontext->uc_mcontext.regs->gpr[PT_R31];
++  *bp = uContext->uc_mcontext.regs->gpr[PT_R31];
+ #elif defined(__sparc__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
++  ucontext_t *uContext = (ucontext_t*)context;
+   uptr *stk_ptr;
+ # if defined (__arch64__)
+-  *pc = ucontext->uc_mcontext.mc_gregs[MC_PC];
+-  *sp = ucontext->uc_mcontext.mc_gregs[MC_O6];
++  *pc = uContext->uc_mcontext.mc_gregs[MC_PC];
++  *sp = uContext->uc_mcontext.mc_gregs[MC_O6];
+   stk_ptr = (uptr *) (*sp + 2047);
+   *bp = stk_ptr[15];
+ # else
+-  *pc = ucontext->uc_mcontext.gregs[REG_PC];
+-  *sp = ucontext->uc_mcontext.gregs[REG_O6];
++  *pc = uContext->uc_mcontext.gregs[REG_PC];
++  *sp = uContext->uc_mcontext.gregs[REG_O6];
+   stk_ptr = (uptr *) *sp;
+   *bp = stk_ptr[15];
+ # endif
+ #elif defined(__mips__)
+-  ucontext_t *ucontext = (ucontext_t*)context;
+-  *pc = ucontext->uc_mcontext.pc;
+-  *bp = ucontext->uc_mcontext.gregs[30];
+-  *sp = ucontext->uc_mcontext.gregs[29];
++  ucontext_t *uContext = (ucontext_t*)context;
++  *pc = uContext->uc_mcontext.pc;
++  *bp = uContext->uc_mcontext.gregs[30];
++  *sp = uContext->uc_mcontext.gregs[29];
+ #else
+ # error "Unsupported arch"
+ #endif
+
