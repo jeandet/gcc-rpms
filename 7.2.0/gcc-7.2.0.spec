@@ -33,7 +33,7 @@ Patch0: gcc-%{version}.patch
 %undefine _missing_build_ids_terminate_build
 %undefine _disable_source_fetch
 Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-%{version}.tar.gz
-%define  SHA256SUM0 24b981789bc4f8982c47c62f0c867720e7a28f33a390e8e50054ca68e649c551
+%define  SHA256SUM0 9da53841c736391ee2b3b23bb26e6fcde5f1d256c64d130dcd211fb3575214c1
 %description
 The gcc package contains the GNU Compiler Collection version %{version}.
 

@@ -32,7 +32,7 @@ BuildRequires: /lib/libc.so.6 /usr/lib/libc.so /lib64/libc.so.6 /usr/lib64/libc.
 %undefine _missing_build_ids_terminate_build
 %undefine _disable_source_fetch
 Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-%{version}.tar.gz
-%define  SHA256SUM0 24b981789bc4f8982c47c62f0c867720e7a28f33a390e8e50054ca68e649c551
+%define  SHA256SUM0 6d095163c65cddf6808a7114da9c871f8101f2b452642f60dea14b114de4b921
 %description
 The gcc package contains the GNU Compiler Collection version %{version}.
 
