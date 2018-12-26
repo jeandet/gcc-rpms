@@ -1,8 +1,10 @@
 %global snaprel %{nil}
 
-Name: gcc
-Version: 7.1.0
-%define src_dir %{name}-%{version}
+%define base_name gcc
+%global ver_major_minor 7.1
+Name: %{base_name}%{ver_major_minor}
+Version: %{ver_major_minor}.0
+%define src_dir %{base_name}-%{version}
 Release: 0%{?dist}
 Summary: Various compilers (C, C++, Objective-C, ...)
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -27,17 +29,17 @@ BuildRequires: elfutils-devel
 BuildRequires: elfutils-libelf-devel    
 BuildRequires: glibc
 BuildRequires: /lib/libc.so.6 /usr/lib/libc.so /lib64/libc.so.6 /usr/lib64/libc.so
-Patch0: gcc-7.1.0.patch
+Patch0: gcc-%{version}.patch
 %undefine _missing_build_ids_terminate_build
 %undefine _disable_source_fetch
-Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-7.1.0.tar.gz
-%define  SHA256SUM0 4c9da1eb1ef1fbb25806e89cb3e880d80d735c3ae2ee231715f5020115790ebd
+Source0: https://hephaistos.lpp.polytechnique.fr/data/mirrors/gcc/gcc-%{version}.tar.gz
+%define  SHA256SUM0 24b981789bc4f8982c47c62f0c867720e7a28f33a390e8e50054ca68e649c551
 %description
-The gcc package contains the GNU Compiler Collection version 7.1.0.
+The gcc package contains the GNU Compiler Collection version %{version}.
 
 %prep
 echo "%SHA256SUM0 %SOURCE0" | sha256sum -c -
-%setup -q
+%setup -qn %{src_dir}
 %patch0 -p1
 
 %build
