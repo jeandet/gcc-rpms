@@ -41,7 +41,7 @@ echo "%SHA256SUM0 %SOURCE0" | sha256sum -c -
 %patch0 -p1
 
 %build
-CFLAGS=-Ducontext=ucontext_t  CXXFLAGS=-Ducontext=ucontext_t \ 
+CFLAGS=-Ducontext=ucontext_t  CXXFLAGS=-Ducontext=ucontext_t \
     ./configure --prefix=%{_usr}/local/%{src_dir} --enable-multilib --with-tune=generic --with-arch_32=i686
 make %{?_smp_mflags} V=1
 
