@@ -186,4 +186,24 @@ index 9866cc9e17a..4c4ecfe1cac 100644
    unsigned struct_rlimit64_sz = sizeof(struct rlimit64);
    unsigned struct_statvfs64_sz = sizeof(struct statvfs64);
  #endif // SANITIZER_LINUX && !SANITIZER_ANDROID
+diff --git a/libjava/contrib/aot-compile-rpm.in b/libjava/contrib/aot-compile-rpm.in
+index 7d95632555d..09cfcbff7db 100644
+--- a/libjava/contrib/aot-compile-rpm.in
++++ b/libjava/contrib/aot-compile-rpm.in
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ ## Copyright (C) 2005, 2006, 2007, 2011 Free Software Foundation
+ ## Written by Gary Benson <gbenson@redhat.com>
+diff --git a/libjava/contrib/aot-compile.in b/libjava/contrib/aot-compile.in
+index 2ee6739c7a1..afebf305762 100644
+--- a/libjava/contrib/aot-compile.in
++++ b/libjava/contrib/aot-compile.in
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/env python2
+ 
+ ## Copyright (C) 2006, 2011 Free Software Foundation
+ ## Written by Gary Benson <gbenson@redhat.com>
 
